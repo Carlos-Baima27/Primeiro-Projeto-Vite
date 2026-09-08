@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Painel simples para acompanhar suas despesas."
+    />
+    <title>Minhas despesas</title>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="sidebar" aria-labelledby="summary-title">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">$</span
+          ><span>Minhas despesas</span>
+        </div>
+        <div class="sidebar-heading">
+          <p class="eyebrow">Resumo da sessão</p>
+          <h1 id="summary-title">Controle seu dinheiro com clareza.</h1>
+        </div>
+        <section class="total-card" aria-labelledby="total-label">
+          <p id="total-label">Total geral</p>
+          <strong id="total-value">R$ 0,00</strong
+          ><span id="expense-count">0 despesas registradas</span>
+        </section>
+        <section class="category-summary" aria-labelledby="category-title">
+          <div class="section-heading">
+            <h2 id="category-title">Por categoria</h2>
+            <span aria-hidden="true">5</span>
+          </div>
+          <ul class="category-list">
+            <li>
+              <span
+                ><i class="category-dot dot-food" aria-hidden="true"></i
+                >Alimento</span
+              ><strong data-category-total="alimento">R$ 0,00</strong>
+            </li>
+            <li>
+              <span
+                ><i class="category-dot dot-transport" aria-hidden="true"></i
+                >Transporte</span
+              ><strong data-category-total="transporte">R$ 0,00</strong>
+            </li>
+            <li>
+              <span
+                ><i class="category-dot dot-leisure" aria-hidden="true"></i
+                >Lazer</span
+              ><strong data-category-total="lazer">R$ 0,00</strong>
+            </li>
+            <li>
+              <span
+                ><i class="category-dot dot-health" aria-hidden="true"></i
+                >Saúde</span
+              ><strong data-category-total="saúde">R$ 0,00</strong>
+            </li>
+            <li>
+              <span
+                ><i class="category-dot dot-other" aria-hidden="true"></i
+                >Outros</span
+              ><strong data-category-total="outros">R$ 0,00</strong>
+            </li>
+          </ul>
+        </section>
+        <p class="sidebar-note">
+          Os dados ficam disponíveis apenas enquanto esta página estiver aberta.
+        </p>
+      </aside>
+      <main class="content">
+        <header class="page-heading">
+          <div>
+            <p class="eyebrow">Visão geral</p>
+            <h2>Nova despesa</h2>
+          </div>
+          <span class="session-badge"
+            ><span aria-hidden="true"></span>Sessão atual</span
+          >
+        </header>
+        <section class="form-card" aria-labelledby="form-title">
+          <div class="form-card-heading">
+            <div class="number-badge" aria-hidden="true">01</div>
+            <div>
+              <h3 id="form-title">Registrar uma despesa</h3>
+              <p>Preencha os dados para atualizar seu resumo.</p>
+            </div>
+          </div>
+          <form id="expense-form" novalidate>
+            <div class="form-grid">
+              <div class="field field-title">
+                <label for="title">O que você comprou?</label
+                ><input
+                  id="title"
+                  name="title"
+                  type="text"
+                  placeholder="Ex.: Almoço de terça-feira"
+                  autocomplete="off"
+                  aria-describedby="title-error"
+                /><small
+                  id="title-error"
+                  class="field-error"
+                  aria-live="polite"
+                ></small>
+              </div>
+              <div class="field">
+                <label for="amount">Quanto custou?</label>
+                <div class="input-with-prefix">
+                  <span aria-hidden="true">R$</span
+                  ><input
+                    id="amount"
+                    name="amount"
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="0,00"
+                    aria-describedby="amount-error"
+                  />
+                </div>
+                <small
+                  id="amount-error"
+                  class="field-error"
+                  aria-live="polite"
+                ></small>
+              </div>
+              <div class="field">
+                <label for="category">Em qual categoria?</label
+                ><select
+                  id="category"
+                  name="category"
+                  aria-describedby="category-error"
+                >
+                  <option value="">Selecione uma categoria</option>
+                  <option value="alimento">Alimento</option>
+                  <option value="transporte">Transporte</option>
+                  <option value="lazer">Lazer</option>
+                  <option value="saúde">Saúde</option>
+                  <option value="outros">Outros</option></select
+                ><small
+                  id="category-error"
+                  class="field-error"
+                  aria-live="polite"
+                ></small>
+              </div>
+            </div>
+            <div class="form-footer">
+              <p
+                id="form-feedback"
+                class="form-feedback"
+                role="status"
+                aria-live="polite"
+              ></p>
+              <button type="submit">
+                Adicionar despesa <span aria-hidden="true">+</span>
+              </button>
+            </div>
+          </form>
+        </section>
+        <section class="expenses-section" aria-labelledby="expenses-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Movimentações</p>
+              <h2 id="expenses-title">Despesas recentes</h2>
+            </div>
+            <span id="list-count" class="list-count">0 itens</span>
+          </div>
+          <div id="empty-state" class="empty-state">
+            <span class="empty-icon" aria-hidden="true">+</span>
+            <h3>Nenhuma despesa por aqui</h3>
+            <p>Adicione seu primeiro registro usando o formulário acima.</p>
+          </div>
+          <ul id="expense-list" class="expense-list" aria-live="polite"></ul>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
