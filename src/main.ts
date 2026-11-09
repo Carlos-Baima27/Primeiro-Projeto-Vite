@@ -72,7 +72,26 @@ function render(): void {
   for (const expense of [...expenses].reverse()) {
     const item = document.createElement("li");
     item.className = "expense-item";
-    item.innerHTML = `<div class="expense-icon" aria-hidden="true">${categoryLabels[expense.categoria].slice(0, 1)}</div><div class="expense-info"><strong>${expense.titulo}</strong><span>${categoryLabels[expense.categoria]}</span></div><strong class="expense-value">${currency.format(expense.valor)}</strong>`;
+    const icon = document.createElement("div");
+    icon.className = "expense-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = categoryLabels[expense.categoria].slice(0, 1);
+
+    const info = document.createElement("div");
+    info.className = "expense-info";
+
+    const title = document.createElement("strong");
+    title.textContent = expense.titulo;
+
+    const category = document.createElement("span");
+    category.textContent = categoryLabels[expense.categoria];
+    info.append(title, category);
+
+    const value = document.createElement("strong");
+    value.className = "expense-value";
+    value.textContent = currency.format(expense.valor);
+
+    item.append(icon, info, value);
     list.append(item);
   }
   for (const category of categories) {

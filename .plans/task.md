@@ -9,7 +9,7 @@ somente em memória e sem edição ou exclusão de despesas.
 **Objetivo:** evitar interpretação de conteúdo fornecido pelo usuário como HTML e
 falhas silenciosas quando elementos esperados não existirem.
 
-- [ ] T001 [Plan:1.1] Substituir a interpolação do título em `innerHTML` por criação de elementos e `textContent` em `src/main.ts`, mantendo os campos e valores da despesa visíveis.
+- [x] T001 [Plan:1.1] Substituir a interpolação do título em `innerHTML` por criação de elementos e `textContent` em `src/main.ts`, mantendo os campos e valores da despesa visíveis.
 - [ ] T002 [Plan:1.2] Substituir as asserções não nulas dos elementos do DOM em `src/main.ts` por verificações explícitas que informem quais elementos obrigatórios estão ausentes.
 - [ ] T003 [Plan:1.3] Validar a categoria recebida do formulário sem conversão cega de `string` para `Categoria` em `src/main.ts` e `src/types.ts`.
 
