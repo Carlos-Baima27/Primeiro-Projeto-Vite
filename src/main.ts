@@ -1,13 +1,6 @@
 import "./style.css";
-import type { Categoria, Despesa } from "./types";
+import { categories, isCategoria, type Categoria, type Despesa } from "./types";
 
-const categories: Categoria[] = [
-  "alimento",
-  "transporte",
-  "lazer",
-  "saúde",
-  "outros",
-];
 const categoryLabels: Record<Categoria, string> = {
   alimento: "Alimento",
   transporte: "Transporte",
@@ -48,10 +41,11 @@ function setError(field: string, message: string): void {
   error.textContent = message;
 }
 
-function validateForm(): boolean {
+function validateForm(): Categoria | null {
   const title = titleInput.value.trim();
   const amount = Number(amountInput.value);
-  const category = categoryInput.value as Categoria;
+  const category = categoryInput.value;
+  const validCategory = isCategoria(category) ? category : null;
   setError("title", title ? "" : "Informe um título para a despesa.");
   setError(
     "amount",
@@ -61,14 +55,14 @@ function validateForm(): boolean {
   );
   setError(
     "category",
-    categories.includes(category) ? "" : "Escolha uma categoria válida.",
+    validCategory ? "" : "Escolha uma categoria válida.",
   );
-  return Boolean(
-    title &&
+  return title &&
+    amountInput.value &&
     Number.isFinite(amount) &&
-    amount > 0 &&
-    categories.includes(category),
-  );
+    amount > 0
+    ? validCategory
+    : null;
 }
 
 function render(): void {
@@ -116,7 +110,8 @@ function render(): void {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   feedback.textContent = "";
-  if (!validateForm()) {
+  const category = validateForm();
+  if (!category) {
     feedback.textContent = "Revise os campos destacados.";
     return;
   }
@@ -124,7 +119,7 @@ form.addEventListener("submit", (event) => {
     id: crypto.randomUUID(),
     titulo: titleInput.value.trim(),
     valor: Number(amountInput.value),
-    categoria: categoryInput.value as Categoria,
+    categoria: category,
   });
   render();
   form.reset();
