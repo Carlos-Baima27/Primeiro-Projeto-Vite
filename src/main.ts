@@ -20,20 +20,29 @@ const currency = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 const expenses: Despesa[] = [];
-const form = document.querySelector<HTMLFormElement>("#expense-form")!;
-const titleInput = document.querySelector<HTMLInputElement>("#title")!;
-const amountInput = document.querySelector<HTMLInputElement>("#amount")!;
-const categoryInput = document.querySelector<HTMLSelectElement>("#category")!;
-const list = document.querySelector<HTMLUListElement>("#expense-list")!;
-const emptyState = document.querySelector<HTMLDivElement>("#empty-state")!;
-const totalValue = document.querySelector<HTMLElement>("#total-value")!;
-const expenseCount = document.querySelector<HTMLElement>("#expense-count")!;
-const listCount = document.querySelector<HTMLElement>("#list-count")!;
-const feedback = document.querySelector<HTMLElement>("#form-feedback")!;
+
+function getRequiredElement<T extends HTMLElement>(selector: string): T {
+  const element = document.querySelector<T>(selector);
+  if (!element) {
+    throw new Error(`Elemento obrigatório não encontrado: ${selector}`);
+  }
+  return element;
+}
+
+const form = getRequiredElement<HTMLFormElement>("#expense-form");
+const titleInput = getRequiredElement<HTMLInputElement>("#title");
+const amountInput = getRequiredElement<HTMLInputElement>("#amount");
+const categoryInput = getRequiredElement<HTMLSelectElement>("#category");
+const list = getRequiredElement<HTMLUListElement>("#expense-list");
+const emptyState = getRequiredElement<HTMLDivElement>("#empty-state");
+const totalValue = getRequiredElement<HTMLElement>("#total-value");
+const expenseCount = getRequiredElement<HTMLElement>("#expense-count");
+const listCount = getRequiredElement<HTMLElement>("#list-count");
+const feedback = getRequiredElement<HTMLElement>("#form-feedback");
 
 function setError(field: string, message: string): void {
-  const input = document.querySelector<HTMLElement>(`#${field}`)!;
-  const error = document.querySelector<HTMLElement>(`#${field}-error`)!;
+  const input = getRequiredElement<HTMLElement>(`#${field}`);
+  const error = getRequiredElement<HTMLElement>(`#${field}-error`);
   input.classList.toggle("has-error", message !== "");
   input.setAttribute("aria-invalid", String(message !== ""));
   error.textContent = message;
@@ -98,9 +107,9 @@ function render(): void {
     const categoryTotal = expenses
       .filter((expense) => expense.categoria === category)
       .reduce((sum, expense) => sum + expense.valor, 0);
-    document.querySelector<HTMLElement>(
+    getRequiredElement<HTMLElement>(
       `[data-category-total="${category}"]`,
-    )!.textContent = currency.format(categoryTotal);
+    ).textContent = currency.format(categoryTotal);
   }
 }
 

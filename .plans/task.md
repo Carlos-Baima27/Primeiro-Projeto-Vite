@@ -10,7 +10,7 @@ somente em memória e sem edição ou exclusão de despesas.
 falhas silenciosas quando elementos esperados não existirem.
 
 - [x] T001 [Plan:1.1] Substituir a interpolação do título em `innerHTML` por criação de elementos e `textContent` em `src/main.ts`, mantendo os campos e valores da despesa visíveis.
-- [ ] T002 [Plan:1.2] Substituir as asserções não nulas dos elementos do DOM em `src/main.ts` por verificações explícitas que informem quais elementos obrigatórios estão ausentes.
+- [x] T002 [Plan:1.2] Substituir as asserções não nulas dos elementos do DOM em `src/main.ts` por verificações explícitas que informem quais elementos obrigatórios estão ausentes.
 - [ ] T003 [Plan:1.3] Validar a categoria recebida do formulário sem conversão cega de `string` para `Categoria` em `src/main.ts` e `src/types.ts`.
 
 **Pronto quando:** títulos com caracteres como `<` e `>` aparecem como texto;
