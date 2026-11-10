@@ -22,7 +22,7 @@ não são cadastradas; e uma estrutura HTML incompleta gera erro explícito.
 **Objetivo:** tornar os comportamentos importantes verificáveis e detectar erros
 de tipagem durante o build.
 
-- [ ] T004 [Plan:2.1] Configurar um runner de testes compatível com Vite em `package.json` e criar a estrutura de testes em `src/`.
+- [x] T004 [Plan:2.1] Configurar um runner de testes compatível com Vite em `package.json` e criar a estrutura de testes em `src/`.
 - [ ] T005 [Plan:2.2] Cobrir validação do formulário, estado vazio, cadastro válido e atualização dos totais geral e por categoria com testes focados nos módulos de `src/`.
 - [ ] T006 [Plan:2.3] Habilitar `strict` em `tsconfig.json` e corrigir os erros identificados sem enfraquecer as verificações de tipo.
 - [ ] T007 [Plan:2.4] Atualizar os scripts em `package.json` para executar build e testes, mantendo `npm run build` como verificação obrigatória.
