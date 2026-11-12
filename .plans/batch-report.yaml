@@ -1,49 +1,53 @@
-batch_id: "T004"
-completed_tasks: ["T004"]
+batch_id: "T005"
+completed_tasks: ["T005"]
 blocked_tasks: []
 files_changed:
-  T004:
-    - file: "package.json"
-      change_type: "modified"
-      description: "Added Vitest/jsdom development dependencies and the npm test script."
-    - file: "package-lock.json"
-      change_type: "modified"
-      description: "Locked the new test dependencies."
-    - file: "vitest.config.ts"
+  T005:
+    - file: "src/test/main.test.ts"
       change_type: "created"
-      description: "Configured jsdom and the shared test setup for Vitest."
+      description: "Added form-flow tests for validation, empty state, successful registration, and totals."
     - file: "src/test/setup.ts"
-      change_type: "created"
-      description: "Added shared cleanup for DOM content and mocks."
-    - file: "src/test/types.test.ts"
-      change_type: "created"
-      description: "Added initial category-validator tests to verify the runner."
+      change_type: "modified"
+      description: "Added cleanup for stubbed globals between tests."
     - file: ".plans/task.md"
       change_type: "modified"
-      description: "Marked T004 complete."
+      description: "Marked T005 complete."
     - file: ".plans/checkpoints/tasks-to-impl.yaml"
-      change_type: "created"
-      description: "Recorded T004 implementation and validation."
+      change_type: "modified"
+      description: "Recorded T005 implementation and validation."
+upstream_artifacts_consumed:
+  T005:
+    - artifact: ".plans/task.md"
+      used_for: "T005 scope and plan reference 2.2"
+    - artifact: ".plans/prd.md"
+      used_for: "Form validation, list empty state, expense creation, and summary requirements"
+    - artifact: "src/main.ts"
+      used_for: "Existing DOM behavior and selectors exercised by the tests"
+evidence_mapping:
+  T005:
+    - upstream: ".plans/prd.md#RF-02"
+      output: "src/test/main.test.ts#expense form"
+      evidence: "Tests reject blank/whitespace titles, empty, nonnumeric, and nonpositive amounts, and unsupported categories."
+    - upstream: ".plans/prd.md#RF-01, RF-03, RF-04, RF-05"
+      output: "src/test/main.test.ts#adds valid expenses and updates overall and category totals"
+      evidence: "Test verifies the empty-to-populated list transition and overall/category totals after valid registrations."
 traceability:
-  - requirement: "Not specified in .plans/task.md"
-    plan_item: "2.1"
-    task: "T004"
+  - requirement: "RF-01 to RF-05: form validation, empty state, expense registration, and summary totals"
+    plan_item: "2.2"
+    task: "T005"
     files:
-      - "package.json"
-      - "package-lock.json"
-      - "vitest.config.ts"
+      - "src/test/main.test.ts"
       - "src/test/setup.ts"
-      - "src/test/types.test.ts"
     status: "completed"
 protocol_violation: false
 errors: []
 warnings:
   - severity: HIGH
-    message: "npm audit reported two high-severity findings in the dependency tree, including the existing Vite 8.2.2; remediation is outside T004."
+    message: "Existing npm audit findings reported during T004 were not part of T005 scope."
 test_results:
-  T004:
+  T005:
     command: "npm test"
-    passed: 2
+    passed: 5
     failed: 0
     skipped: 0
     failures: []

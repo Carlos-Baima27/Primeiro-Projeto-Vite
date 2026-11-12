@@ -1,11 +1,11 @@
 metadata:
   generated: "2026-11-10"
   source_tasks: ".plans/task.md"
-  last_updated: "2026-11-10"
+  last_updated: "2026-11-11"
 
 summary:
-  total_tasks: 1
-  completed_tasks: 1
+  total_tasks: 2
+  completed_tasks: 2
   in_progress_tasks: 0
   pending_tasks: 0
   completion_percentage: 100.0
@@ -49,6 +49,32 @@ tasks:
       plan_item: "2.1"
       requirements: []
       full_trace: "Plan 2.1 -> T004 -> Vitest configuration and test scaffolding"
+  - task_id: "T005"
+    description: "Cover form validation, empty state, valid registration, and overall/category totals with focused src/ tests"
+    status: "completed"
+    implementation:
+      files_changed:
+        - file: "src/test/main.test.ts"
+          changes:
+            - change_type: "added"
+              description: "Added DOM integration tests for initial empty/zero state, invalid submissions, valid expenses, and updated totals."
+        - file: "src/test/setup.ts"
+          changes:
+            - change_type: "modified"
+              description: "Restores stubbed globals after each test."
+    verification:
+      build_passed: true
+      test_results:
+        command: "npm test"
+        passed: 5
+        failed: 0
+        skipped: 0
+        failures: []
+      notes: "npm run build also passed."
+    upstream_trace:
+      plan_item: "2.2"
+      requirements: ["RF-01", "RF-02", "RF-03", "RF-04", "RF-05"]
+      full_trace: "PRD RF-01..RF-05 -> Plan 2.2 -> T005 -> src/test/main.test.ts"
 
 pending_tasks: []
 untracked_changes: []
