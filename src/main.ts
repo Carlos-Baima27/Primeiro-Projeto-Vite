@@ -1,4 +1,5 @@
 import "./style.css";
+import { fromCents, sumInCents } from "./money";
 import { categories, isCategoria, type Categoria, type Despesa } from "./types";
 
 const categoryLabels: Record<Categoria, string> = {
@@ -66,7 +67,7 @@ function validateForm(): Categoria | null {
 }
 
 function render(): void {
-  const total = expenses.reduce((sum, expense) => sum + expense.valor, 0);
+  const total = fromCents(sumInCents(expenses.map((expense) => expense.valor)));
   totalValue.textContent = currency.format(total);
   expenseCount.textContent = `${expenses.length} ${expenses.length === 1 ? "despesa registrada" : "despesas registradas"}`;
   listCount.textContent = `${expenses.length} ${expenses.length === 1 ? "item" : "itens"}`;
@@ -98,9 +99,13 @@ function render(): void {
     list.append(item);
   }
   for (const category of categories) {
-    const categoryTotal = expenses
-      .filter((expense) => expense.categoria === category)
-      .reduce((sum, expense) => sum + expense.valor, 0);
+    const categoryTotal = fromCents(
+      sumInCents(
+        expenses
+          .filter((expense) => expense.categoria === category)
+          .map((expense) => expense.valor),
+      ),
+    );
     getRequiredElement<HTMLElement>(
       `[data-category-total="${category}"]`,
     ).textContent = currency.format(categoryTotal);
