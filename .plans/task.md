@@ -34,8 +34,8 @@ lista nem os totais; e a configuração TypeScript estrita permanece habilitada.
 
 **Objetivo:** evitar imprecisão de ponto flutuante ao somar valores em reais.
 
-- [ ] T008 [Plan:3.1] Criar funções de conversão e soma em centavos em `src/money.ts`, mantendo os valores armazenados em `Despesa.valor` compatíveis com o modelo atual.
-- [ ] T009 [Plan:3.2] Usar as funções monetárias para calcular o total geral e os totais por categoria em `src/main.ts`.
+- [x] T008 [Plan:3.1] Criar funções de conversão e soma em centavos em `src/money.ts`, mantendo os valores armazenados em `Despesa.valor` compatíveis com o modelo atual.
+- [x] T009 [Plan:3.2] Usar as funções monetárias para calcular o total geral e os totais por categoria em `src/main.ts`.
 - [ ] T010 [Plan:3.3] Testar casos com valores decimais, como `0,10 + 0,20`, valores de uma casa decimal e totais por categoria em `src/`.
 
 **Pronto quando:** os cálculos retornam valores corretos até os centavos e a
