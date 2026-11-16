@@ -1,49 +1,42 @@
-batch_id: "T010"
-completed_tasks: ["T010"]
+batch_id: "T011"
+completed_tasks: ["T011"]
 blocked_tasks: []
 files_changed:
-  T010:
-    - file: "src/test/main.test.ts"
-      change_type: "modified"
-      description: "Added a DOM integration test covering 0.10 + 0.20, a one-decimal-place amount, formatted expense values, and overall/category totals."
+  T011:
+    - file: "src/counter.ts"
+      change_type: "deleted"
+      description: "Removed the unused Vite starter counter module after repository-wide reference search."
     - file: ".plans/task.md"
       change_type: "modified"
-      description: "Marked T010 complete."
+      description: "Marked T011 complete."
     - file: ".plans/checkpoints/tasks-to-impl.yaml"
       change_type: "modified"
-      description: "Recorded T010 implementation and verification."
+      description: "Recorded T011 implementation and verification."
     - file: ".plans/batch-report.yaml"
       change_type: "created"
-      description: "Recorded the T010 batch result."
+      description: "Recorded the T011 batch result."
 upstream_artifacts_consumed:
-  T010:
+  T011:
     - artifact: ".plans/task.md"
-      used_for: "T010 scope and plan reference 3.3"
-    - artifact: ".plans/prd.md"
-      used_for: "Currency formatting and overall/category summary requirements"
-    - artifact: "src/money.ts"
-      used_for: "Existing cent-based conversion and summation behavior exercised by tests"
-    - artifact: "src/test/money.test.ts"
-      used_for: "Existing unit coverage for decimal conversion and arithmetic"
+      used_for: "T011 scope and plan reference 4.1"
+    - artifact: "src/counter.ts"
+      used_for: "Confirmed the file only contains the unused starter counter module."
 evidence_mapping:
-  T010:
-    - upstream: ".plans/task.md#T010"
-      output: "src/test/main.test.ts#calculates decimal totals overall and by category"
-      evidence: "Integration test confirms 0.10 + 0.20 is displayed as 0.30, 1.5 as 1.50, and category and overall totals are correct."
-    - upstream: ".plans/prd.md#RT-05"
-      output: "src/test/main.test.ts#calculates decimal totals overall and by category"
-      evidence: "The test checks Brazilian currency decimal formatting in the expense list and summaries."
+  T011:
+    - upstream: ".plans/task.md#T011"
+      output: "src/counter.ts"
+      evidence: "Repository-wide search found no imports or references to the counter module outside itself and the task description."
 traceability:
-  - requirement: "RF-04, RF-05, RT-05: accurate overall/category totals and Brazilian currency formatting"
-    plan_item: "3.3"
-    task: "T010"
-    files: ["src/test/main.test.ts"]
+  - requirement: "Plan 4.1: remove the unused starter counter module"
+    plan_item: "4.1"
+    task: "T011"
+    files: ["src/counter.ts"]
     status: "completed"
 protocol_violation: false
 errors: []
 warnings: []
 test_results:
-  T010:
+  T011:
     command: "npm test"
     passed: 8
     failed: 0

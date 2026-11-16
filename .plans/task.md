@@ -45,7 +45,7 @@ exibição continua usando `Intl.NumberFormat` em `pt-BR` com moeda `BRL`.
 
 **Objetivo:** remover resíduo do template e validar o fluxo completo da aplicação.
 
-- [ ] T011 [Plan:4.1] Remover `src/counter.ts` caso a busca de referências confirme que o módulo não é utilizado.
+- [x] T011 [Plan:4.1] Remover `src/counter.ts` caso a busca de referências confirme que o módulo não é utilizado.
 - [ ] T012 [Plan:4.2] Executar testes, `npm run build` e uma verificação manual do cadastro em desktop e tela estreita; corrigir apenas regressões relacionadas às etapas anteriores.
 
 **Pronto quando:** não há código inicial sem uso, os comandos de validação passam
