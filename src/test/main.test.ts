@@ -153,4 +153,40 @@ describe("expense form", () => {
     expect(getElement<HTMLInputElement>("#title").value).toBe("");
     expect(document.activeElement).toBe(getElement<HTMLInputElement>("#title"));
   });
+
+  it("calculates decimal totals overall and by category", () => {
+    getElement<HTMLInputElement>("#title").value = "Café";
+    getElement<HTMLInputElement>("#amount").value = "0.10";
+    getElement<HTMLSelectElement>("#category").value = "alimento";
+    submitExpense();
+
+    getElement<HTMLInputElement>("#title").value = "Pão";
+    getElement<HTMLInputElement>("#amount").value = "0.20";
+    getElement<HTMLSelectElement>("#category").value = "alimento";
+    submitExpense();
+
+    getElement<HTMLInputElement>("#title").value = "Ônibus";
+    getElement<HTMLInputElement>("#amount").value = "1.5";
+    getElement<HTMLSelectElement>("#category").value = "transporte";
+    submitExpense();
+
+    expect(getElement<HTMLElement>("#total-value").textContent).toContain(
+      "1,80",
+    );
+    expect(
+      getElement<HTMLElement>('[data-category-total="alimento"]').textContent,
+    ).toContain("0,30");
+    expect(
+      getElement<HTMLElement>('[data-category-total="transporte"]').textContent,
+    ).toContain("1,50");
+    expect(
+      getElement<HTMLElement>('[data-category-total="lazer"]').textContent,
+    ).toContain("0,00");
+    expect(getElement<HTMLUListElement>("#expense-list").textContent).toContain(
+      "0,10",
+    );
+    expect(getElement<HTMLUListElement>("#expense-list").textContent).toContain(
+      "0,20",
+    );
+  });
 });

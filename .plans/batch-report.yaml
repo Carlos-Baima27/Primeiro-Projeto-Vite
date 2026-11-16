@@ -1,53 +1,54 @@
-batch_id: "T005"
-completed_tasks: ["T005"]
+batch_id: "T010"
+completed_tasks: ["T010"]
 blocked_tasks: []
 files_changed:
-  T005:
+  T010:
     - file: "src/test/main.test.ts"
-      change_type: "created"
-      description: "Added form-flow tests for validation, empty state, successful registration, and totals."
-    - file: "src/test/setup.ts"
       change_type: "modified"
-      description: "Added cleanup for stubbed globals between tests."
+      description: "Added a DOM integration test covering 0.10 + 0.20, a one-decimal-place amount, formatted expense values, and overall/category totals."
     - file: ".plans/task.md"
       change_type: "modified"
-      description: "Marked T005 complete."
+      description: "Marked T010 complete."
     - file: ".plans/checkpoints/tasks-to-impl.yaml"
       change_type: "modified"
-      description: "Recorded T005 implementation and validation."
+      description: "Recorded T010 implementation and verification."
+    - file: ".plans/batch-report.yaml"
+      change_type: "created"
+      description: "Recorded the T010 batch result."
 upstream_artifacts_consumed:
-  T005:
+  T010:
     - artifact: ".plans/task.md"
-      used_for: "T005 scope and plan reference 2.2"
+      used_for: "T010 scope and plan reference 3.3"
     - artifact: ".plans/prd.md"
-      used_for: "Form validation, list empty state, expense creation, and summary requirements"
-    - artifact: "src/main.ts"
-      used_for: "Existing DOM behavior and selectors exercised by the tests"
+      used_for: "Currency formatting and overall/category summary requirements"
+    - artifact: "src/money.ts"
+      used_for: "Existing cent-based conversion and summation behavior exercised by tests"
+    - artifact: "src/test/money.test.ts"
+      used_for: "Existing unit coverage for decimal conversion and arithmetic"
 evidence_mapping:
-  T005:
-    - upstream: ".plans/prd.md#RF-02"
-      output: "src/test/main.test.ts#expense form"
-      evidence: "Tests reject blank/whitespace titles, empty, nonnumeric, and nonpositive amounts, and unsupported categories."
-    - upstream: ".plans/prd.md#RF-01, RF-03, RF-04, RF-05"
-      output: "src/test/main.test.ts#adds valid expenses and updates overall and category totals"
-      evidence: "Test verifies the empty-to-populated list transition and overall/category totals after valid registrations."
+  T010:
+    - upstream: ".plans/task.md#T010"
+      output: "src/test/main.test.ts#calculates decimal totals overall and by category"
+      evidence: "Integration test confirms 0.10 + 0.20 is displayed as 0.30, 1.5 as 1.50, and category and overall totals are correct."
+    - upstream: ".plans/prd.md#RT-05"
+      output: "src/test/main.test.ts#calculates decimal totals overall and by category"
+      evidence: "The test checks Brazilian currency decimal formatting in the expense list and summaries."
 traceability:
-  - requirement: "RF-01 to RF-05: form validation, empty state, expense registration, and summary totals"
-    plan_item: "2.2"
-    task: "T005"
-    files:
-      - "src/test/main.test.ts"
-      - "src/test/setup.ts"
+  - requirement: "RF-04, RF-05, RT-05: accurate overall/category totals and Brazilian currency formatting"
+    plan_item: "3.3"
+    task: "T010"
+    files: ["src/test/main.test.ts"]
     status: "completed"
 protocol_violation: false
 errors: []
-warnings:
-  - severity: HIGH
-    message: "Existing npm audit findings reported during T004 were not part of T005 scope."
+warnings: []
 test_results:
-  T005:
+  T010:
     command: "npm test"
-    passed: 5
+    passed: 8
     failed: 0
     skipped: 0
     failures: []
+build_results:
+  command: "npm run build"
+  passed: true
