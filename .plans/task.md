@@ -57,7 +57,7 @@ O PRD deixa edição e exclusão em aberto e exclui essas funcionalidades do esc
 atual. Antes de executar os itens abaixo, atualizar `.plans/prd.md` com as regras
 de comportamento e critérios de aceite.
 
-- [ ] T013 [Plan:5.1] Definir no PRD se despesas poderão ser editadas ou excluídas e como confirmar essas ações.
+- [x] T013 [Plan:5.1] Definir no PRD se despesas poderão ser editadas ou excluídas e como confirmar essas ações.
 - [ ] T014 [Plan:5.2] Se aprovado, implementar as ações de edição e exclusão em `index.html`, `src/main.ts` e `src/style.css`, atualizando lista e resumos a partir do estado em memória.
 - [ ] T015 [Plan:5.3] Se aprovado, adicionar testes para edição, exclusão e atualização dos resumos nos arquivos de teste em `src/`.
 

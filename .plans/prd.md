@@ -25,7 +25,7 @@ Fora do escopo:
 
 - Persistência em `localStorage`, banco de dados ou API.
 - Autenticação e contas de usuário.
-- Edição ou exclusão de despesas, salvo decisão posterior de produto.
+- Edição ou exclusão de despesas no MVP atual. Qualquer ação futura depende de decisão de produto e de critérios de confirmação explícita.
 - Filtros, busca, exportação e gráficos.
 - Categorias criadas pelo usuário.
 
@@ -233,6 +233,7 @@ Manter uma escala consistente de espaçamento, tipografia, bordas e cores. Evita
 - [ ] O TypeScript manipula o estado e atualiza os elementos dinâmicos existentes no DOM.
 - [ ] Os tipos compartilhados estão em `src/types.ts`.
 - [ ] Recarregar a página pode limpar os dados, conforme o escopo sem persistência.
+- [ ] Edição ou exclusão de despesas permanecem fora do MVP atual, até que a decisão de produto seja aprovada e os critérios de confirmação sejam explicitados.
 
 ## 8. Não objetivos e decisões em aberto
 
@@ -243,5 +244,15 @@ O MVP não pretende substituir um sistema financeiro completo. Não haverá hist
 ### Decisões em aberto
 
 - Definir se a moeda deve aceitar casas decimais obrigatórias ou opcionais no campo de valor.
-- Definir se despesas cadastradas precisarão de ações de edição e exclusão em uma versão posterior.
+- A edição e a exclusão de despesas continuam fora do escopo do MVP atual. Se a equipe aprovar uma versão futura, as ações devem ser acessíveis por teclado e exigirem confirmação explícita antes de alterar ou remover dados.
 - Definir a identidade visual final: paleta, tipografia e ícones, preservando os requisitos de legibilidade e contraste.
+
+### Regra de confirmação para ações futuras
+
+Caso a funcionalidade de edição ou exclusão seja aprovada em um próximo incremento, a experiência deve seguir estas regras:
+
+- Edição: a despesa selecionada deve abrir um formulário de alteração pré-preenchido, com botão de confirmação e botão de cancelar.
+- Exclusão: a ação deve exigir uma confirmação explícita em caixa de diálogo ou modal, com mensagem clara como "Excluir despesa?" e opções de cancelar e confirmar.
+- Segurança: uma ação de confirmação deve ser necessária para qualquer alteração ou remoção de registros, evitando exclusão acidental por clique no botão errado.
+- Acessibilidade: o foco deve permanecer no modal ou no fluxo de edição, com navegação por teclado e rótulos legíveis para leitores de tela.
+- Estado: as alterações devem ser refletidas imediatamente na lista e nos totais do painel após confirmação, sem duplicar valores ou deixar o resumo inconsistente.
