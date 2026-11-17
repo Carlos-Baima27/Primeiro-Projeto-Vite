@@ -58,8 +58,8 @@ atual. Antes de executar os itens abaixo, atualizar `.plans/prd.md` com as regra
 de comportamento e critérios de aceite.
 
 - [x] T013 [Plan:5.1] Definir no PRD se despesas poderão ser editadas ou excluídas e como confirmar essas ações.
-- [ ] T014 [Plan:5.2] Se aprovado, implementar as ações de edição e exclusão em `index.html`, `src/main.ts` e `src/style.css`, atualizando lista e resumos a partir do estado em memória.
-- [ ] T015 [Plan:5.3] Se aprovado, adicionar testes para edição, exclusão e atualização dos resumos nos arquivos de teste em `src/`.
+- [x] T014 [Plan:5.2] Implementar as ações de edição e exclusão em `index.html`, `src/main.ts` e `src/style.css`, atualizando lista e resumos a partir do estado em memória.
+- [x] T015 [Plan:5.3] Adicionar testes para edição, exclusão e atualização dos resumos nos arquivos de teste em `src/`.
 
 ## Fora do roteiro atual
 

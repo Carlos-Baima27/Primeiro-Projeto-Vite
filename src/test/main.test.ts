@@ -30,6 +30,7 @@ describe("expense form", () => {
         </select>
         <small id="category-error"></small>
         <p id="form-feedback"></p>
+        <button id="form-cancel" type="button" hidden>Cancelar</button>
         <button type="submit">Add</button>
       </form>
       <ul id="expense-list"></ul>
@@ -188,5 +189,63 @@ describe("expense form", () => {
     expect(getElement<HTMLUListElement>("#expense-list").textContent).toContain(
       "0,20",
     );
+  });
+
+  it("edits an existing expense and updates totals and form state", () => {
+    getElement<HTMLInputElement>("#title").value = "Mercado";
+    getElement<HTMLInputElement>("#amount").value = "25.50";
+    getElement<HTMLSelectElement>("#category").value = "alimento";
+    submitExpense();
+
+    const editButton = getElement<HTMLButtonElement>(
+      ".expense-item .edit-button",
+    );
+    editButton.click();
+
+    getElement<HTMLInputElement>("#title").value = "Cinema";
+    getElement<HTMLInputElement>("#amount").value = "40";
+    getElement<HTMLSelectElement>("#category").value = "lazer";
+    submitExpense();
+
+    const list = getElement<HTMLUListElement>("#expense-list");
+    expect(list.textContent).toContain("Cinema");
+    expect(list.textContent).not.toContain("Mercado");
+    expect(getElement<HTMLElement>("#total-value").textContent).toContain(
+      "40,00",
+    );
+    expect(
+      getElement<HTMLElement>('[data-category-total="lazer"]').textContent,
+    ).toContain("40,00");
+    expect(getElement<HTMLButtonElement>("#form-cancel").hidden).toBe(true);
+  });
+
+  it("deletes an expense after confirmation and keeps the summary consistent", () => {
+    vi.stubGlobal("confirm", vi.fn(() => true));
+
+    getElement<HTMLInputElement>("#title").value = "Mercado";
+    getElement<HTMLInputElement>("#amount").value = "25.50";
+    getElement<HTMLSelectElement>("#category").value = "alimento";
+    submitExpense();
+
+    getElement<HTMLInputElement>("#title").value = "Ônibus";
+    getElement<HTMLInputElement>("#amount").value = "10";
+    getElement<HTMLSelectElement>("#category").value = "transporte";
+    submitExpense();
+
+    const deleteButton = getElement<HTMLButtonElement>(
+      ".expense-item .delete-button",
+    );
+    deleteButton.click();
+
+    expect(getElement<HTMLUListElement>("#expense-list").children).toHaveLength(1);
+    expect(getElement<HTMLElement>("#total-value").textContent).toContain(
+      "10,00",
+    );
+    expect(
+      getElement<HTMLElement>('[data-category-total="alimento"]').textContent,
+    ).toContain("0,00");
+    expect(
+      getElement<HTMLElement>('[data-category-total="transporte"]').textContent,
+    ).toContain("10,00");
   });
 });

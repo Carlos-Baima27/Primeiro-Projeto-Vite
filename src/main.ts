@@ -33,6 +33,11 @@ const totalValue = getRequiredElement<HTMLElement>("#total-value");
 const expenseCount = getRequiredElement<HTMLElement>("#expense-count");
 const listCount = getRequiredElement<HTMLElement>("#list-count");
 const feedback = getRequiredElement<HTMLElement>("#form-feedback");
+const submitButton = getRequiredElement<HTMLButtonElement>(
+  "#expense-form button[type='submit']",
+);
+const cancelButton = getRequiredElement<HTMLButtonElement>("#form-cancel");
+let editingId: string | null = null;
 
 function setError(field: string, message: string): void {
   const input = getRequiredElement<HTMLElement>(`#${field}`);
@@ -40,6 +45,20 @@ function setError(field: string, message: string): void {
   input.classList.toggle("has-error", message !== "");
   input.setAttribute("aria-invalid", String(message !== ""));
   error.textContent = message;
+}
+
+function clearErrors(): void {
+  setError("title", "");
+  setError("amount", "");
+  setError("category", "");
+}
+
+function updateSubmitButtonLabel(): void {
+  submitButton.innerHTML =
+    editingId !== null
+      ? "Salvar alterações"
+      : 'Adicionar despesa <span aria-hidden="true">+</span>';
+  cancelButton.hidden = editingId === null;
 }
 
 function validateForm(): Categoria | null {
@@ -64,6 +83,55 @@ function validateForm(): Categoria | null {
     amount > 0
     ? validCategory
     : null;
+}
+
+function startEditing(id: string): void {
+  const expense = expenses.find((item) => item.id === id);
+  if (!expense) {
+    return;
+  }
+
+  editingId = id;
+  titleInput.value = expense.titulo;
+  amountInput.value = String(expense.valor);
+  categoryInput.value = expense.categoria;
+  clearErrors();
+  updateSubmitButtonLabel();
+  feedback.textContent = "Editando despesa selecionada.";
+  titleInput.focus();
+}
+
+function cancelEditing(): void {
+  editingId = null;
+  form.reset();
+  clearErrors();
+  updateSubmitButtonLabel();
+  feedback.textContent = "Edição cancelada.";
+  titleInput.focus();
+}
+
+function removeExpense(id: string): void {
+  const expense = expenses.find((item) => item.id === id);
+  if (!expense) {
+    return;
+  }
+
+  const shouldRemove = window.confirm(`Excluir despesa "${expense.titulo}"?`);
+  if (!shouldRemove) {
+    return;
+  }
+
+  const index = expenses.findIndex((item) => item.id === id);
+  if (index === -1) {
+    return;
+  }
+
+  expenses.splice(index, 1);
+  render();
+  if (editingId === id) {
+    cancelEditing();
+  }
+  feedback.textContent = "Despesa removida com sucesso.";
 }
 
 function render(): void {
@@ -95,7 +163,23 @@ function render(): void {
     value.className = "expense-value";
     value.textContent = currency.format(expense.valor);
 
-    item.append(icon, info, value);
+    const actions = document.createElement("div");
+    actions.className = "expense-actions";
+
+    const editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.className = "edit-button";
+    editButton.textContent = "Editar";
+    editButton.addEventListener("click", () => startEditing(expense.id));
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "delete-button";
+    deleteButton.textContent = "Excluir";
+    deleteButton.addEventListener("click", () => removeExpense(expense.id));
+
+    actions.append(editButton, deleteButton);
+    item.append(icon, info, value, actions);
     list.append(item);
   }
   for (const category of categories) {
@@ -120,19 +204,39 @@ form.addEventListener("submit", (event) => {
     feedback.textContent = "Revise os campos destacados.";
     return;
   }
-  expenses.push({
-    id: crypto.randomUUID(),
-    titulo: titleInput.value.trim(),
-    valor: Number(amountInput.value),
-    categoria: category,
-  });
+
+  if (editingId !== null) {
+    const index = expenses.findIndex((expense) => expense.id === editingId);
+    if (index >= 0) {
+      expenses[index] = {
+        ...expenses[index],
+        titulo: titleInput.value.trim(),
+        valor: Number(amountInput.value),
+        categoria: category,
+      };
+    }
+    feedback.textContent = "Despesa atualizada com sucesso.";
+  } else {
+    expenses.push({
+      id: crypto.randomUUID(),
+      titulo: titleInput.value.trim(),
+      valor: Number(amountInput.value),
+      categoria: category,
+    });
+    feedback.textContent = "Despesa adicionada com sucesso.";
+  }
+
   render();
+  editingId = null;
   form.reset();
-  setError("title", "");
-  setError("amount", "");
-  setError("category", "");
-  feedback.textContent = "Despesa adicionada com sucesso.";
+  clearErrors();
+  updateSubmitButtonLabel();
   titleInput.focus();
 });
 
+cancelButton.addEventListener("click", () => {
+  cancelEditing();
+});
+
+updateSubmitButtonLabel();
 render();

@@ -334,6 +334,11 @@ select:focus {
   color: var(--green);
   font-size: 12px;
 }
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 button {
   border: 0;
   border-radius: 7px;
@@ -359,6 +364,13 @@ button span {
   font-size: 17px;
   line-height: 0;
   vertical-align: -1px;
+}
+.secondary-button {
+  background: #eef4f1;
+  color: var(--ink);
+}
+.secondary-button:hover {
+  background: #e2ebe7;
 }
 .expenses-section {
   margin-top: 50px;
@@ -440,6 +452,27 @@ button span {
 .expense-value {
   color: var(--ink);
   font-size: 13px;
+  font-weight: 700;
+}
+.expense-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+}
+.expense-actions button {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.expense-actions .edit-button {
+  background: #f2f7f4;
+  color: var(--ink);
+}
+.expense-actions .delete-button {
+  background: #f8e8e7;
+  color: #8a3b38;
 }
 [hidden] {
   display: none !important;
