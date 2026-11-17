@@ -32,7 +32,7 @@ lista nem os totais; e a configuração TypeScript estrita permanece habilitada.
 
 ## Etapa 3 — Precisão monetária
 
-**Objetivo:** evitar imprecisão de ponto flutuante ao somar valores em reais.
+**Objetivo:** evitar imprecisão de ponto flutuante ao somar valores em reais.o t
 
 - [x] T008 [Plan:3.1] Criar funções de conversão e soma em centavos em `src/money.ts`, mantendo os valores armazenados em `Despesa.valor` compatíveis com o modelo atual.
 - [x] T009 [Plan:3.2] Usar as funções monetárias para calcular o total geral e os totais por categoria em `src/main.ts`.
@@ -46,7 +46,7 @@ exibição continua usando `Intl.NumberFormat` em `pt-BR` com moeda `BRL`.
 **Objetivo:** remover resíduo do template e validar o fluxo completo da aplicação.
 
 - [x] T011 [Plan:4.1] Remover `src/counter.ts` caso a busca de referências confirme que o módulo não é utilizado.
-- [ ] T012 [Plan:4.2] Executar testes, `npm run build` e uma verificação manual do cadastro em desktop e tela estreita; corrigir apenas regressões relacionadas às etapas anteriores.
+- [x] T012 [Plan:4.2] Executar testes, `npm run build` e uma verificação manual do cadastro em desktop e tela estreita; corrigir apenas regressões relacionadas às etapas anteriores.
 
 **Pronto quando:** não há código inicial sem uso, os comandos de validação passam
 e o cadastro permanece acessível por teclado e utilizável em telas menores.
